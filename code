@@ -1,0 +1,39 @@
+package pageObjectModule;
+
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class MultipleTC {
+
+	public static void main(String[] args) throws InterruptedException, EncryptedDocumentException, IOException {
+		
+		
+		Utility util = new Utility();
+		WebDriver driver = util.initDriver();
+		
+		POM1 signup = new POM1(driver);
+		
+		
+		
+		//TC01
+		signup.enterFirstName(util.readExcelSheet(0,1));
+		signup.enterLastName(util.readExcelSheet(0,2));
+		signup.enterEmail(util.readExcelSheet(0,3));
+		signup.selectGender();
+		signup.selectMonth("Jan");
+		
+		Thread.sleep(4000);
+		
+		//TC02
+		driver.get("https://www.facebook.com/signup");
+		signup.enterFirstName(util.readExcelSheet(1,1));
+		signup.enterLastName(util.readExcelSheet(1,2));
+		signup.enterEmail(util.readExcelSheet(1,3));
+		signup.selectGender();
+		signup.selectMonth("Dec");
+	}
+
+}
