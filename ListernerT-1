@@ -1,0 +1,53 @@
+package listerner;
+
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class DemoTC {
+	String tcID;
+	
+	BaseClass base= new BaseClass();
+	WebDriver driver;
+	
+	@BeforeMethod
+	public void login() {
+		driver= base.driverInit();
+	}
+	@Test
+	public void TC01() {
+		tcID= "TC_201";
+		Reporter.log("TC01 performed",true);
+		Assert.fail();
+	}
+	
+	@Test
+	public void TC02() {
+		tcID= "TC_202";
+		Reporter.log("TC02 performed",true);
+		Assert.fail();
+	}
+	
+	@AfterMethod
+	public void logout(ITestResult result) throws IOException {
+		
+		int sts=result.getStatus();
+		if(ITestResult.FAILURE==result.getStatus()) {
+			
+			Utility util=new Utility();
+			util.takeScreenshot(tcID);
+			Reporter.log("screenshot captured",true);
+			
+			
+		}
+		Reporter.log("application logout",true);
+		
+	}
+
+}
